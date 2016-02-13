@@ -20,11 +20,13 @@ var IMAGE = {
 	SHOT_LETTER: "p/letter_shot.png", 
 	SHOT_CHOCOLATE: "p/chocolate_shot.png", 
 };
-var AUDIO = {};
+var AUDIO = {
+	MASUPA: "a/masupa.mp3", 
+};
 
 function is_preload_complete()
 {
-	return image.__cnt == image.__max_cnt && audio.__cnt == audio.__max_cnt;
+	return image.__cnt == image.__max_cnt && audio.__cnt >= audio.__max_cnt;
 }
 
 var enemy = {};
@@ -79,7 +81,7 @@ UI.SCREEN = {
 };
 
 UI.LOADING = {
-	TEXT: "少女變身中", 
+	TEXT: "少女沐浴中", 
 	TEXT_COLOR: COLOR.TEXT, 
 	FONT: "60px "+UI.DEFAULT_FONT, 
 	ANI_IN_FCNT: 24, 
@@ -105,9 +107,9 @@ UI.SUB = {
 	MANA_COLOR: [COLOR.DARK_RED, COLOR.YELLOW, COLOR.GREEN], 
 	CTRL_TEXT: [
 		"閃避：←↓↑→", 
-		"驅趕：Z", 
-		"拒收：X", 
-		"專注：SHIFT", 
+		"回絕：Z", 
+		"威嚇：X", 
+		"謹慎：SHIFT", 
 	], 
 	CTRL_X: 10, 
 	CTRL_Y: 470, 
@@ -122,7 +124,7 @@ UI.MIKATA = {
 	MESS_EY: -20, 
 	MESS_COLOR: COLOR.RED, 
 	MESS_DEAD: "RECEIVED!", 
-	MESS_BOMB: "ULT!", 
+	MESS_BOMB: "REJECT!", 
 	MESS_FSPD: 0.04, 
 	MESS_SFCNT: 48, 
 	MESS_ASPD: 0.03, 

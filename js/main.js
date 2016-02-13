@@ -31,7 +31,7 @@ function preload()
 			sound.addEventListener("canplaythrough", preload_audio_callback, true);
 			sound.preload = 'auto';
 			sound.src = AUDIO[key];
-			audio[AUDIO[key]] = sound;
+			audio[key] = sound;
 		}
 	}
 	audio.__max_cnt = cnt;

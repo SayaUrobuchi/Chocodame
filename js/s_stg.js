@@ -20,6 +20,7 @@ var STGEVENT = {
 	TALK: 1, 
 	ENEMY: 2, 
 	NEXT: 3, 
+	BGM: 4, 
 };
 
 var STG_TALK = {
@@ -203,6 +204,8 @@ function STGScene()
 		{
 			return;
 		}
+		self.fcnt++;
+		self.bgm_volume(1-Math.min(1, self.fcnt/240));
 		g.font = UI.GAMEOVER.FONT;
 		g.textAlign = "center";
 		g.textBaseline = "middle";
@@ -213,6 +216,8 @@ function STGScene()
 		g.fillText(UI.GAMEOVER.TEXT2, UI.GAMEOVER.X2, UI.GAMEOVER.Y2);
 		if (self.input[KEY.RE])
 		{
+			self.stop_bgm();
+			self.bgm_volume(1);
 			scene.pop();
 			scene.push(STGScene());
 		}
@@ -225,6 +230,7 @@ function STGScene()
 			return;
 		}
 		self.fcnt++;
+		self.bgm_volume(1-Math.min(1, self.fcnt/240));
 		g.font = UI.CLEAR.FONT;
 		g.textAlign = "center";
 		g.textBaseline = "middle";
@@ -240,6 +246,8 @@ function STGScene()
 		{
 			self.stage = level[self.next_stage];
 			self.state = STG.START;
+			self.stop_bgm();
+			self.bgm_volume(1);
 		}
 	}
 	
@@ -358,6 +366,9 @@ function STGScene()
 			break;
 		case STGEVENT.NEXT:
 			self.next_stage = self.cur_event.id;
+			break;
+		case STGEVENT.BGM:
+			self.play_bgm(self.cur_event);
 			break;
 		}
 	}
@@ -541,6 +552,34 @@ function STGScene()
 		self.attack_list[GROUP.MIKATA].push(e);
 	}
 	
+	self.play_bgm = function (data)
+	{
+		self.stop_bgm();
+		self.bgm = data.audio;
+		self.bgm.loop = true;
+		if (is_def(self.bgm))
+		{
+			self.bgm.play();
+		}
+	}
+	
+	self.stop_bgm = function()
+	{
+		if (is_def(self.bgm))
+		{
+			self.bgm.pause();
+			self.bgm.currentTime = 0;
+		}
+	}
+	
+	self.bgm_volume = function(volume)
+	{
+		if (is_def(self.bgm))
+		{
+			self.bgm.volume = volume;
+		}
+	}
+	
 	self.set_talk = function (data)
 	{
 		self.talk_data = data;
@@ -585,6 +624,7 @@ function STGScene()
 	{
 		self.state = STG.GAME_OVER;
 		self.ss = STG.READY;
+		self.fcnt = 0;
 	}
 	
 	self.keyup = function (e)

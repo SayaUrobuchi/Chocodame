@@ -486,6 +486,9 @@ level[1] = extend(LEVEL_TEMPLATE, {
 				img: TACHIE.YOYO_LAUGH, 
 				img_loc: STG_TALK.TACHIE_LEFT, 
 			}), 
+			extend(LEVEL_BGM_TEMPLATE, {
+				audio: audio.MASUPA, 
+			}), 
 			extend(LEVEL_ENEMY_TEMPLATE, {
 				enemy: enemy.hunter, 
 			}), 

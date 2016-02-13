@@ -227,6 +227,7 @@ function Enemy(data)
 		self.hp -= value;
 		if (self.hp <= 0)
 		{
+			self.hp = 0;
 			self.die(field);
 		}
 	}
